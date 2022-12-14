@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+const withPWA = require('next-pwa')({
+  dest: 'public'
+})
+
+
+const nextConfig = withPWA({
   experimental: {
     transpilePackages: [
       '@web3modal/ethereum',
@@ -10,6 +16,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   swcMinify: true,
-}
+})
 
 module.exports = nextConfig

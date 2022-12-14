@@ -1,12 +1,11 @@
 import { EthereumClient, modalConnectors, walletConnectProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import type { AppProps } from 'next/app'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { polygonMumbai, mainnet, polygon } from 'wagmi/chains'
-
-
 
 
 const projectId: string = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!
@@ -31,6 +30,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
+
       {ready ? (
         <WagmiConfig client={wagmiClient}>
           <Component {...pageProps} />
