@@ -7,14 +7,12 @@ type Data = {
 
 
 async function dummy(req: NextApiRequest, res: NextApiResponse<Data>) {
-    console.log(2)
     
-    res.status(200).json({ name: 'xxxxxxxxxxxxxxx Doe' })
+    res.status(200).json({ name: 'test Doe' })
 }
 
 
 export default async function index(req: NextApiRequest, res: NextApiResponse<Data>) {
-    console.log(1)
     switch (req.method) {
         case REQ_METHODS.DELETE:
             return await dummy(req, res);

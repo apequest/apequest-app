@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { polygonMumbai, mainnet, polygon } from 'wagmi/chains'
+import { SessionProvider } from "next-auth/react"
 
 
 const projectId: string = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID!
@@ -21,6 +22,7 @@ const wagmiClient = createClient({
 export const ethereumClient = new EthereumClient(wagmiClient, chains)
 
 export default function App({ Component, pageProps }: AppProps) {
+
   const { pathname } = useRouter()
   const [ready, setReady] = useState(false)
 
@@ -30,19 +32,21 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-      </Head>
+      <SessionProvider session={pageProps.session}>
+        <Head>
+          <link rel="manifest" href="/manifest.json" />
+        </Head>
 
-      {ready ? (
-        <WagmiConfig client={wagmiClient}>
-          <Component {...pageProps} />
-        </WagmiConfig>
-      ) : null}
+        {ready ? (
+          <WagmiConfig client={wagmiClient}>
+            <Component {...pageProps} />
+          </WagmiConfig>
+        ) : null}
 
-      {pathname === '/custom' ? null : (
-        <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
-      )}
+        {pathname === '/custom' ? null : (
+          <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+        )}
+      </SessionProvider>
     </>
   )
 }
