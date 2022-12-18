@@ -2,11 +2,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { signIn, signOut, useSession, } from 'next-auth/react';
+import { useWeb3Modal, Web3Button } from '@web3modal/react'
+import { useAccount } from 'wagmi'
 
 export default function Home() {
   const { data: session, status } = useSession()
+  const { isConnected } = useAccount()
+  const { open } = useWeb3Modal()
 
-  console.log(session)
+  
 
 
   return (
@@ -14,6 +18,7 @@ export default function Home() {
     <div>
 
       <Link href="/admin">Admin</Link>
+      <Web3Button />
 
       {session ?
         (

@@ -23,6 +23,8 @@ export const ethereumClient = new EthereumClient(wagmiClient, chains)
 
 export default function App({ Component, pageProps }: AppProps) {
 
+
+
   const { pathname } = useRouter()
   const [ready, setReady] = useState(false)
 
