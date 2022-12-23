@@ -10,7 +10,7 @@ export default function CreateQuizz() {
   const [questions, setQuestions] = useState<Question[]>()
   const [question, setQuestion] = useState<Question>({ imagehash: "", questionid: 0, options: [], questiontext: "" })
   const [options, setOptions] = useState<Option[]>()
-  const [option, setOption] = useState<Option>({id:0, istrue: false, option: "" })
+  const [option, setOption] = useState<Option>({ id: 0, istrue: false, option: "" })
   const [quizzname, setQuizzname] = useState<string>("")
 
 
@@ -48,13 +48,29 @@ export default function CreateQuizz() {
       <div>
         <QuestionsList questions={questions} />
       </div>
+      <div>
+        <button onClick={handleSave}>Save Questions</button>
+      </div>
 
     </>
   )
+
+  async function handleSave() {
+    const req = await fetch('/api/admin/questions/add/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(questions),
+    })
+    const res = await req.json()
+    console.log(res)
+
+  }
 }
 
 interface Option {
-  id:number,
+  id: number,
   option: string,
   istrue: boolean
 }
@@ -63,5 +79,5 @@ interface Question {
   questionid: number,
   questiontext: string,
   imagehash: string
-  options: Option[] 
+  options: Option[]
 }

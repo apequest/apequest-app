@@ -1,4 +1,5 @@
 import { Web3Button, useWeb3ModalNetwork } from '@web3modal/react'
+import { useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { Dashboard } from '../../components'
 
@@ -10,13 +11,29 @@ export default function HomePage() {
 
 
 
+  useEffect(() => {
 
-  // const chain_id: number | undefined = selectedChain?.id
-  // const network: string | undefined = selectedChain?.network
+    if (isConnected && selectedChain) {
+      handleApi();
+    }
 
-  // if (network) {
-  //   localStorage.setItem('present-network', network)
-  // }
+  }, [isConnected])
+
+  async function handleApi() {
+
+    const req = await fetch('/api/admin/user/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ isConnected, address, selectedChain }),
+    })
+    const res = await req.json()
+
+    console.log(res)
+
+  }
+
 
 
   return (
@@ -25,7 +42,7 @@ export default function HomePage() {
         <div>
           {isConnected === false ?
             (
-              <div>
+              <div >
                 <Web3Button label='Connect to Wallet' />
               </div>
             ) :
@@ -42,3 +59,11 @@ export default function HomePage() {
     </>
   )
 }
+
+
+  // const chain_id: number | undefined = selectedChain?.id
+  // const network: string | undefined = selectedChain?.network
+
+  // if (network) {
+  //   localStorage.setItem('present-network', network)
+  // }

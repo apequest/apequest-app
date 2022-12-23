@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { useEffect } from "react"
 
 interface Option {
     id: number,
@@ -39,14 +39,12 @@ const AddQuestion: React.FC<QuestionProps> = ({ question, questions, setQuestion
 
     return (
         <div>
-
             <input type="text" onChange={(e) => setQuestion({ ...question, questiontext: e.target.value })} placeholder="Question content" value={question?.questiontext} />
-            {/* <input type="file" onChange={e => setImg(e.target.files[0])} /> */}
             <div>
                 <div>
                     <input type="text" onChange={(e) => setOption({ ...option, option: e.target.value })} placeholder="add options" value={option?.option} />
                     Is Option Correct ?
-                    <input type="checkbox" onClick={e => setOption({ ...option, istrue: !option?.istrue })} checked={option?.istrue} />
+                    <input type="checkbox" onChange={e => setOption({ ...option, istrue: !option?.istrue })} checked={option?.istrue} />
                     <button onClick={handleOptions}>Add option</button>
                 </div>
                 <button onClick={addNextQuestion}>Add Question {qcounter + 1}</button>

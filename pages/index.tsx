@@ -1,8 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import { signIn, signOut, useSession, } from 'next-auth/react';
 import { useWeb3Modal, Web3Button } from '@web3modal/react'
+import { signIn, signOut, useSession } from 'next-auth/react';
+import Link from 'next/link'
+import { useEffect } from 'react';
 import { useAccount } from 'wagmi'
 
 export default function Home() {
@@ -10,8 +9,13 @@ export default function Home() {
   const { isConnected } = useAccount()
   const { open } = useWeb3Modal()
 
-  
 
+  useEffect(() => {
+    if (status == "authenticated") {
+      console.log(session)
+    }
+  }, [status])
+  
 
   return (
 
