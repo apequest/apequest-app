@@ -1,7 +1,5 @@
 import Link from "next/link"
 
-
-
 interface DashboardPros {
     address: string | any
 }

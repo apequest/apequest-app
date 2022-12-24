@@ -24,21 +24,25 @@ const QuestionsList: React.FC<Questions> = ({ questions }) => {
         <div>
             {questions?.map((question, index) => {
                 return (
-                    <p key={question.questionid}>
-                        {question.questiontext}
-                        {question.questionid}
-                        {question.options.map((option: Option, index) => {
-                            return (
-                                <p key={option.id}>
-                                    {option.option}
-                                    {"  "}
-                                    {option.istrue}
-                                    {"  "}
+                    <div key={question.questionid}>
+                        <div >
+                            {question.questiontext}
+                            {question.questionid}
+                            {question.options.map((option: Option, index) => {
+                                return (
+                                    <div key={index}>
+                                        <div key={option.id}>
+                                            {option.option}
+                                            {"  "}
+                                            {option.istrue}
+                                            {"  "}
 
-                                </p>
-                            )
-                        })}
-                    </p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                 );
             })}
         </div>

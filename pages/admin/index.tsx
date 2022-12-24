@@ -1,9 +1,8 @@
-import { Web3Button, useWeb3ModalNetwork } from '@web3modal/react'
+import { useWeb3ModalNetwork, Web3Button } from '@web3modal/react'
 import { useEffect } from 'react'
 import { useAccount } from 'wagmi'
+
 import { Dashboard } from '../../components'
-
-
 
 export default function HomePage() {
   const { isConnected, address } = useAccount()
@@ -34,7 +33,7 @@ export default function HomePage() {
 
   }
 
-
+  
 
   return (
     <>
