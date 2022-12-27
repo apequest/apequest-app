@@ -1,17 +1,3 @@
-
-// interface Option {
-//     id: number,
-//     option: string,
-//     correct: boolean
-// }
-
-// interface Question {
-//     questionid: number,
-//     questiontext: string,
-//     imagehash: string | undefined
-//     options: Option[]
-// }
-
 import { Answer, Question } from "../../../types/quizz"
 
 interface Questions {
@@ -20,8 +6,8 @@ interface Questions {
 
 const QuestionsList: React.FC<Questions> = ({ questions }) => {
 
-    console.log(questions)
 
+    
     return (
         <div>
             {questions?.map((question, index) => {

@@ -9,7 +9,7 @@ export default function Stake() {
 
   const {quizzid} = router.query
 
-  console.log(quizzid?.at(0))
+  // console.log(quizzid?.at(0))
 
   
 

@@ -28,7 +28,7 @@ export default function HomePage() {
       body: JSON.stringify({ isConnected, address, selectedChain }),
     })
     const res = await req.json()
-
+    // need to handle
     console.log(res)
 
   }

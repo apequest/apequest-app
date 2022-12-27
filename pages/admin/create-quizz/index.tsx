@@ -67,7 +67,7 @@ export default function CreateQuizz() {
       body: JSON.stringify({ questions, quizzname, address })
     })
     const res = await req.json()
-    console.log(res)
+
     if (res.error) {
       alert('technical Error')
     } else {

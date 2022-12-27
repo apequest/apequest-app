@@ -45,7 +45,7 @@ async function questions(req: NextApiRequest, res: NextApiResponse<IResponse>) {
 
         let quizz_ = await Quizz.create({ title: quizzname, description: "", questions: questionIds, createdBy: _admin_?.id })
         api_response.quizzid = quizz_.id
-        console.log(quizz_.id)
+
     } catch (error) {
         api_response.error = true;
         api_response.errorMsg = String(error)
