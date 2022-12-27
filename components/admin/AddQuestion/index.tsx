@@ -1,17 +1,8 @@
 import { useEffect } from "react"
+import { Question, Answer } from "../../../types/quizz"
 
-interface Option {
-    id: number,
-    option: string,
-    istrue: boolean
-}
 
-interface Question {
-    questionid: number,
-    questiontext: string,
-    imagehash: string | undefined
-    options: Option[]
-}
+
 
 interface QuestionProps {
     question: Question | undefined,
@@ -19,35 +10,35 @@ interface QuestionProps {
     qcounter: number,
     ocounter: number,
     questions: Question[] | undefined,
-    options: Option[] | undefined,
-    option: Option,
+    answers: Answer[] | undefined,
+    answer: Answer,
     setQcounter: any,
     setOcounter: any,
     setQuestions: any,
-    setOptions: any,
-    setOption: any
+    setAnswers: any,
+    setAnswer: any
 
 }
 
 
-const AddQuestion: React.FC<QuestionProps> = ({ question, questions, setQuestion, qcounter, ocounter, options, option, setQcounter, setOcounter, setQuestions, setOptions, setOption }) => {
+const AddQuestion: React.FC<QuestionProps> = ({ question, questions, setQuestion, qcounter, ocounter, answers, answer, setQcounter, setOcounter, setQuestions, setAnswers, setAnswer }) => {
 
     useEffect(() => {
-        setQuestion({ ...question, questionid: qcounter })
-        setOption({ ...option, id: ocounter })
-    }, [question?.questiontext])
+        setQuestion({ ...question, qid: qcounter })
+        setAnswer({ ...answer, id: ocounter })
+    }, [question?.text])
 
     return (
         <div>
-            <input type="text" onChange={(e) => setQuestion({ ...question, questiontext: e.target.value })} placeholder="Question content" value={question?.questiontext} />
+            <input type="text" onChange={(e) => setQuestion({ ...question, text: e.target.value })} placeholder="Question content" value={question?.text} />
             <div>
                 <div>
-                    <input type="text" onChange={(e) => setOption({ ...option, option: e.target.value })} placeholder="add options" value={option?.option} />
+                    <input type="text" onChange={(e) => setAnswer({ ...answer, text: e.target.value })} placeholder="add options" value={answer?.text} />
                     Is Option Correct ?
-                    <input type="checkbox" onChange={e => setOption({ ...option, istrue: !option?.istrue })} checked={option?.istrue} />
+                    <input type="checkbox" onChange={e => setAnswer({ ...answer, correct: !answer?.correct })} checked={answer?.correct} />
                     <button onClick={handleOptions}>Add option</button>
                 </div>
-                <button onClick={addNextQuestion}>Add Question {qcounter + 1}</button>
+                <button onClick={addNextQuestion}>Save Question {qcounter}</button>
 
             </div>
 
@@ -55,29 +46,27 @@ const AddQuestion: React.FC<QuestionProps> = ({ question, questions, setQuestion
     )
 
     function handleOptions() {
-        if (options) {
-            setOptions([...options, { istrue: option.istrue, option: option.option }])
+        if (answers) {
+            setAnswers([...answers, { correct: answer.correct, text: answer.text }])
         } else {
-            setOptions([{ istrue: option.istrue, option: option.option }])
+            setAnswers([{ correct: answer.correct, text: answer.text }])
         }
         setOcounter((prev: number) => prev + 1)
-        setOption({ id: ocounter, option: "", istrue: false })
+        setAnswer({ id: ocounter, text: "", correct: false })
     }
 
     function addNextQuestion() {
         setQcounter((prev: number) => prev + 1)
 
         if (questions) {
-            setQuestions([...questions, { questionid: question?.questionid, questiontext: question?.questiontext, imagehash: question?.imagehash, options: options }]);
+            setQuestions([...questions, { qid: question?.qid, text: question?.text, imageHash: question?.imageHash, answers: answers }]);
         } else {
-            setQuestions([{ questionid: question?.questionid, questiontext: question?.questiontext, imagehash: question?.imagehash, options: options }]);
+            setQuestions([{ qid: question?.qid, text: question?.text, imageHash: question?.imageHash, answers: answers }]);
         }
-        setQuestion({ imagehash: "", questionid: 0, options: [], questiontext: "" });
-        setOptions([])
-
+        setQuestion({ imageHash: "", qid: 0, answers: [], text: "" });
+        setAnswers([])
 
     }
-
 
 }
 

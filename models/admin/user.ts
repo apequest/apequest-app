@@ -1,14 +1,10 @@
 import mongoose, { models, Schema, Types } from "mongoose";
 
 import type { Model } from "mongoose";
+import { IAdminUser } from "../../types/user/admin";
 
-export interface AdminUserType {
-    name: string;
-    walletAddress: string;
-    networks: [Map<string, string>];
-}
 
-export const AdminUserSchema = new Schema<AdminUserType>(
+export const AdminUserSchema = new Schema<IAdminUser>(
     {
         name: { type: String, required: false },
         walletAddress: { type: String, required: true, unique: true, },
@@ -19,5 +15,5 @@ export const AdminUserSchema = new Schema<AdminUserType>(
     }
 );
 
-const AdminUser: Model<AdminUserType> = models.AdminUser || mongoose.model("AdminUser", AdminUserSchema);
+const AdminUser: Model<IAdminUser> = models.AdminUser || mongoose.model("AdminUser", AdminUserSchema);
 export default AdminUser;

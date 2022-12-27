@@ -1,17 +1,21 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
 
 import { AddQuestion, PresentQuestion, QuestionsList } from '../../../components';
+import { Answer, Question } from '../../../types/quizz';
 
 export default function CreateQuizz() {
   const { isConnected, address } = useAccount()
   const [qcounter, setQcounter] = useState(1);  // present question counter
   const [ocounter, setOcounter] = useState(1);  // present option counter
+  const router = useRouter()
   const [questions, setQuestions] = useState<Question[]>()
-  const [question, setQuestion] = useState<Question>({ imagehash: "", questionid: 0, options: [], questiontext: "" })
-  const [options, setOptions] = useState<Option[]>()
-  const [option, setOption] = useState<Option>({ id: 0, istrue: false, option: "" })
+  const [question, setQuestion] = useState<Question>({ imageHash: "", qid: 0, answers: [], text: "" })
+  const [answers, setAnswers] = useState<Answer[]>()
+  const [answer, setAnswer] = useState<Answer>({ id: 0, correct: false, text: "" })
   const [quizzname, setQuizzname] = useState<string>("")
+
 
 
   return (
@@ -28,15 +32,14 @@ export default function CreateQuizz() {
           setQuestion={setQuestion}
           qcounter={qcounter}
           ocounter={ocounter}
-          options={options}
-          option={option}
+          answers={answers}
+          answer={answer}
           questions={questions}
           setQcounter={setQcounter}
           setOcounter={setOcounter}
           setQuestions={setQuestions}
-          setOptions={setOptions}
-          setOption={setOption}
-
+          setAnswers={setAnswers}
+          setAnswer={setAnswer}
         />
       </div>
       <div>
@@ -61,23 +64,14 @@ export default function CreateQuizz() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(questions),
+      body: JSON.stringify({ questions, quizzname, address })
     })
     const res = await req.json()
     console.log(res)
-
+    if (res.error) {
+      alert('technical Error')
+    } else {
+      router.push(`/admin/stake/${res.quizzid}`)
+    }
   }
-}
-
-interface Option {
-  id: number,
-  option: string,
-  istrue: boolean
-}
-
-interface Question {
-  questionid: number,
-  questiontext: string,
-  imagehash: string
-  options: Option[]
 }

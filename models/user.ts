@@ -2,7 +2,7 @@ import mongoose, { models, Schema, Types } from "mongoose";
 
 import type { Model } from "mongoose";
 
-import type { User as UserType } from "../types/user";
+import type { User as UserType } from "../types/user/participant";
 
 
 

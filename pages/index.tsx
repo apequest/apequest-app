@@ -12,10 +12,10 @@ export default function Home() {
 
   useEffect(() => {
     if (status == "authenticated") {
-      console.log(session)
+
     }
   }, [status])
-  
+
 
   return (
 
