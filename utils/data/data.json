@@ -1,0 +1,12 @@
+{
+    "tokens": [
+        {
+            "address": "xxxa",
+            "name": "USDT"
+        },
+        {
+            "address": "xxxb",
+            "name": "USDC"
+        }
+    ]
+}
